@@ -17,12 +17,16 @@
   --danger: 0 94% 65%;
   --overlay: #00000020;
   --radius: 8px;
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .dark {
   --background: 222 47% 11%;
   --foreground: 48 52% 95%;
-  --surface: 240 2% 18%;
+  --surface: 217 33% 17%;
   --primary: 54 77% 75%;
   --secondary: 34 59% 63%;
   --accent: 16 40% 53%;
@@ -67,5 +71,14 @@ html {
 @layer base {
   body {
     @apply bg-background text-foreground;
+  }
+}
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

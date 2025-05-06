@@ -13,7 +13,6 @@ export default function ToggleSwitch({
   onToggle,
   activeTheme
 }: ToggleSwitchProps) {
-  console.log(activeTheme);
   return (
     <div
       onClick={onToggle}

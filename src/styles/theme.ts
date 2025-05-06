@@ -30,7 +30,7 @@ export const lightTheme = {
 export const darkTheme = {
   "--background": "222 47% 11%", // #0f172a
   "--foreground": "48 52% 95%",// #f9f6ec
-  "--surface": "240 2% 18%", // #2c2c2e
+  "--surface": "217° 33% 17%", // #1e293b
   "--primary": "54 77% 75%", // #f0e78e
   "--secondary": "34 59% 63%", // #d8a869
   "--accent": "16 40% 53%", // #b77157
