@@ -1,15 +1,12 @@
 import { signOutAction } from "@/app/actions";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { createClient } from "@/utils/supabase/server";
-import { getUser } from "@/lib/getUser";
 
-export default async function AuthButton() {
-  const user = await getUser();
+export default async function AuthButton({isAuthenticated}: {isAuthenticated: boolean}) {
 
-  return user ? (
+  return isAuthenticated ? (
     <div className="flex items-center gap-4">
-      Hey, {user.email}!
+      Hey, there!
       <Button onClick={signOutAction} variant={"outline"}>
         Sign out
       </Button>

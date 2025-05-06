@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import ToggleSwitch from "./ui/switch";
 import { useThemeContext } from "@/contexts/ThemeContext";

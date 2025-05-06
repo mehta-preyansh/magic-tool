@@ -1,12 +1,16 @@
-import { Geist } from "next/font/google";
 import "./globals.css";
+
+import { Geist } from "next/font/google";
+
 import { ThemeContextProvider } from "@/contexts/ThemeContext";
+import { SidebarProvider } from "@/contexts/SidebarContext";
+import { ToolContextProvider } from "@/contexts/ToolContext";
+
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
-import { SidebarProvider } from "@/contexts/SidebarContext";
-import { getUser } from "@/lib/getUser";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 
+import { getUser } from "@/lib/getUser";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -30,11 +34,12 @@ export default async function RootLayout({
 }>) {
   const user = await getUser();
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+    <ToolContextProvider>
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
               (function() {
                 try {
                   const theme = localStorage.getItem('theme');
@@ -46,25 +51,28 @@ export default async function RootLayout({
                 } catch (_) {}
               })();
             `,
-          }}
-        />
-      </head>
-      <body className={`${geistSans.className} bg-background text-foreground`}>
+            }}
+          />
+        </head>
+        <body
+          className={`${geistSans.className} bg-background text-foreground`}
+        >
           <ThemeContextProvider>
             <SidebarProvider>
               {user && <Sidebar />}
               <main className="h-screen flex flex-col items-center gap-12">
                 <Navbar />
                 <div className="w-full flex flex-1 flex-col p-5 overflow-hidden">
-                  <div className="w-full flex-1 overflow-y-auto">
+                  <div className="flex flex-col w-full flex-1 overflow-hidden items-center justify-start">
                     {children}
                   </div>
                 </div>
               </main>
-              <Toaster/>
+              <Toaster />
             </SidebarProvider>
           </ThemeContextProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ToolContextProvider>
   );
 }

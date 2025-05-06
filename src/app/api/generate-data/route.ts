@@ -5,11 +5,16 @@ export type graph = 'bar-chart' | 'pie-chart' | 'line-chart';
 export interface DashboardData {
   dashboard_name: string;
   description: string;
-  data_entries: Array<{
-    label: string;
-    type: string;
-    description?: string;
-  }>;
+  data_entries: {
+    fields: Array<{
+      label: string;
+      description?: string;
+    }>;
+    data_points: Array<{
+      label: string;
+      value: string;
+    }>;
+  };
   recommended_visualizations: graph[];
   sorting?: string[]
 }
@@ -36,10 +41,22 @@ export async function POST(request: Request) {
       {
         "dashboard_name": string, // A basic tool name
         "description": string,  // A short description of the tool
-        "data_entries": [{"label": string, "type": string, "description": string}], // A list of data entries with their labels, types and optional descriptions. The type should be a datatype in Javascript (e.g. string, number, boolean, date, etc.)
+        "data_entries": {
+          "fields": DataField[], //Fields for the dashboard
+          "data_points": DataPoint[] //Mock data
+        },
         "recommended_visualizations": string[], // A list of recommended visualizations for the dashboard out of 'bar-chart' | 'pie-chart' | 'line-chart'.
-        "sorting": string[] | null // Optional: A list of data_entries on which the dashboard should be able to sort
+        "sorting": string[] | null // Optional: A list of fields on which the dashboard should be able to sort
       }
+      Additional info:
+        interface DataField {
+          label: string;
+          description?: string;
+        }
+        interface DataPoint {
+          label: string;
+          value: string;
+        }
       Return ONLY the JSON, without markdown or additional text.
     `;
 
@@ -54,7 +71,7 @@ export async function POST(request: Request) {
     // Validate structure (optional, using type assertion)
     if (
       !parsedData.dashboard_name ||
-      !parsedData.data_entries?.length
+      !parsedData.data_entries?.fields.length
     ) {
       throw new Error("Invalid JSON structure from Gemini");
     }
