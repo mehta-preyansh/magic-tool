@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 48 52% 95%;
+  --foreground: 222 47% 11%;
+  --surface: 36 30% 78%;
+  --primary: 54 77% 75%;
+  --secondary: 34 59% 63%;
+  --accent: 16 40% 53%;
+  --highlight: 301 29% 43%;
+  --muted: 270 44% 31%;
+  --info: 208 80% 52%;
+  --success: 131 53% 46%;
+  --warning: 39 100% 48%;
+  --danger: 0 94% 65%;
+  --overlay: #00000020;
+  --radius: 8px;
+}
+
+.dark {
+  --background: 222 47% 11%;
+  --foreground: 48 52% 95%;
+  --surface: 240 2% 18%;
+  --primary: 54 77% 75%;
+  --secondary: 34 59% 63%;
+  --accent: 16 40% 53%;
+  --highlight: 301 29% 43%;
+  --muted: 270 44% 31%;
+  --info: 201 59% 56%;
+  --success: 120 41% 64%;
+  --warning: 44 92% 63%;
+  --danger: 355 65% 65%;
+  --overlay: #00000099;
+  --radius: 8px;
+}
+
+html {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Style the entire scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height of the scrollbar for horizontal scroll */
+}
+
+/* Style the track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background-color: #ffffff46; /* Light gray background */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 0, 0); /* Darker gray with opacity */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Darker on hover */
+}
+
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
