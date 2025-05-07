@@ -84,6 +84,13 @@ export default function ChatInput() {
                 "Generate Dashboard"
               )}
             </Button>
+            <Button onClick={()=> {setData(null)}} variant="outline" className="ml-2" disabled={isLoading}>
+              {isLoading ? (
+                <LoaderCircleIcon className="animate-spin"/>
+              ) : (
+                "Restart"
+              )}
+            </Button>
           </div>
         </>
       ) : (
