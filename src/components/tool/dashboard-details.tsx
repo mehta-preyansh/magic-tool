@@ -16,7 +16,7 @@ export const DashboardDetails: React.FC<DashboardDetailsProps> = ({
   onDescriptionChange
 }) => {
   return (
-    <div className="mb-4 p-4 bg-white rounded shadow">
+    <div className="mb-4 p-4 bg-surface rounded shadow">
       <div className="mb-2">
         <Label htmlFor="dashboardName">Dashboard Name</Label>
         <Input

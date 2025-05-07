@@ -5,6 +5,7 @@ import { useState, KeyboardEvent, useEffect, useRef } from "react";
 import ScrollableInput from "./ui/scrollable-input";
 import { Button } from "./ui/button";
 import { LoaderCircleIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ChatInput() {
   const [input, setInput] = useState<string>("");
@@ -12,6 +13,7 @@ export default function ChatInput() {
   const [error, setError] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { data, setData } = useToolContext();
+  const router = useRouter()
 
   // Auto-resize textarea when input changes
   useEffect(() => {
@@ -60,18 +62,9 @@ export default function ChatInput() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/generate-dashboard", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data }),
-      });
-
-      if (!response.ok)
-        throw new Error(`HTTP error! status: ${response.status}`);
-      const generatedData = await response.json();
-      console.log("Generated Dashboard Data:", generatedData);
+      router.push("/dashboard?guest=true");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to generate dashboard");
+      setError(err instanceof Error ? err.message : "Failed to redirect");
     } finally {
       setIsLoading(false);
     }

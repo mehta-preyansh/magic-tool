@@ -26,7 +26,7 @@ export const DataPointEditor: React.FC<DataPointEditorProps> = ({ dataPoints, se
   };
 
   return (
-    <div className="mb-4 p-4 bg-white rounded shadow">
+    <div className="mb-4 p-4 bg-surface rounded shadow">
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-medium">Data Points</h3>
         <Button onClick={addDataPoint} variant="outline" className="ml-2">

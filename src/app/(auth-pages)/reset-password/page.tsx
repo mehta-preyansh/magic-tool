@@ -3,10 +3,16 @@ import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { getUser } from "@/lib/getUser";
+import { redirect } from "next/navigation";
 
 export default async function ResetPassword(props: {
   searchParams: Promise<Message>;
 }) {
+  const user = await getUser();
+  if(!user){
+    redirect("/sign-in");
+  }
   const searchParams = await props.searchParams;
   return (
     <form className="flex flex-col w-full max-w-md p-4 gap-2 [&>input]:mb-4">

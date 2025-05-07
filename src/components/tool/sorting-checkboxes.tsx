@@ -17,7 +17,7 @@ export const SortingSelector: React.FC<SortingSelectorProps> = ({ fields, select
   };
 
   return (
-    <div className="mb-4 p-4 bg-white rounded shadow">
+    <div className="mb-4 p-4 bg-surface rounded shadow">
       <h3 className="text-lg font-medium mb-2">Sorting Fields</h3>
       {fields.length === 0 ? (
         <p className="text-sm text-gray-500">No fields available for sorting.</p>

@@ -21,7 +21,7 @@ export const VisualizationSelector: React.FC<VisualizationSelectorProps> = ({ se
   };
 
   return (
-    <div className="mb-4 p-4 bg-white rounded shadow">
+    <div className="mb-4 p-4 bg-surface rounded shadow">
       <h3 className="text-lg font-medium mb-2">Recommended Visualizations</h3>
       {options.map((option) => (
         <div key={option} className="flex items-center mb-1">

@@ -29,7 +29,7 @@ export const FieldEditor: React.FC<FieldEditorProps> = ({ fields, setFields }) =
   };
 
   return (
-    <div className="mb-4 p-4 bg-white rounded shadow">
+    <div className="mb-4 p-4 bg-surface rounded shadow">
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-medium">Fields</h3>
         <Button onClick={addField} variant="outline" className="ml-2">
