@@ -1,50 +1,56 @@
-"use client";
+import { getUser } from "@/lib/getUser";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 import FinalTool from "@/components/tool/final-tool";
-import { useToolContext } from "@/contexts/ToolContext";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { DashboardData } from "../api/generate-data/route";
+import GuestDashboard from "@/components/guest-dashboard";
 
-const Dashboard = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const id = searchParams.get("id");
-  const guest = searchParams.get("guest");
-  const { data } = useToolContext();
+interface DashboardPageProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
-  const [config, setConfig] = useState<DashboardData | null>(data);
+export default async function Dashboard({ searchParams }: DashboardPageProps) {
+  //Authentication check
+  const user = await getUser();
+  if (!user) {
+    redirect("/sign-in?redirect_to=/dashboard");
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`/api/get-dashboard?id=${id}`);
-        const jsonResponse = await res.json();
-        setConfig(jsonResponse);
-      } catch (err) {
-        console.error("Error fetching dashboard data:", err);
-        router.replace("/");
-      }
-    };
-    if (id) {
-      fetchData();
-    } else {
-      if (guest) {
-        if (data) {
-          setConfig(data);
-        } else {
-          router.replace("/");
-        }
-      } else {
-        router.replace("/");
-      }
+  //Get the search params
+  const id = searchParams.id as string;
+  const guest = searchParams.guest as string;
+
+  //Verify if user has access to this dashboard
+  if (id) {
+    const supabase = await createClient();
+    const { data: dashboard, error } = await supabase
+      .from("dashboards")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error || !dashboard) {
+      redirect("/");
     }
-  }, [id, guest, data, router, config]);
-  if (!config) return null;
-  return (
-    <div className="flex flex-1 justify-center overflow-y-auto">
-      <FinalTool config={config!} />
-    </div>
-  );
-};
 
-export default Dashboard;
+    // Check if user owns the dashboard or has access
+    if (dashboard.user_id !== user.id) {
+      // You might want to check a shared_dashboards table or similar
+      // for additional access control
+      redirect("/");
+    }
+
+    return (
+      <div className="flex flex-1 justify-center overflow-y-auto">
+        <FinalTool config={dashboard} />
+      </div>
+    );
+  }
+
+  // 4. Handle guest access
+  if (guest) {
+    return <GuestDashboard />;
+  }
+
+  // 5. If no valid id or guest token, redirect to home
+  redirect("/");
+}

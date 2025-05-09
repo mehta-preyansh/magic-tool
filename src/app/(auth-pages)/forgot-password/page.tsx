@@ -1,6 +1,6 @@
 import { forgotPasswordAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "@/components/submit-button";
+import SubmitButton  from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default async function ForgotPassword(props: {
   const searchParams = await props.searchParams;
   return (
     <>
-      <form className="flex-1 flex flex-col gap-2 text-foreground [&>input]:mb-6 w-2/6 min-w-64 max-w-2/4 mx-auto">
+      <form className="flex flex-col gap-2 text-foreground [&>input]:mb-6 w-2/6 min-w-64 max-w-2/4 mx-auto">
         <div>
           <h1 className="text-2xl font-medium">Reset Password</h1>
           <p className="text-sm text-secondary-foreground">

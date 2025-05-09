@@ -1,15 +1,12 @@
-import { signOutAction } from "@/app/actions";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import SignOutButton from "./sign-out-button";
 
-export default async function AuthButton({isAuthenticated}: {isAuthenticated: boolean}) {
-
+export default function AuthButton({isAuthenticated}: {isAuthenticated: boolean}) {
   return isAuthenticated ? (
     <div className="flex items-center gap-4">
       Hey, there!
-      <Button onClick={signOutAction} variant={"outline"}>
-        Sign out
-      </Button>
+      <SignOutButton />
     </div>
   ) : (
     <div className="flex gap-2">
